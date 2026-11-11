@@ -1,10 +1,10 @@
 {
   "text": {
     "title": "Dragon Mystery",
-    "heroName": "Kai",
-    "allyName": "Niko",
-    "town": "Ciudad Poniente",
-    "dungeon": "Cañón Rojizo",
+    "heroName": "Goku",
+    "allyName": "Krillin",
+    "town": "Ciudad del Oeste",
+    "dungeon": "Cañón Rocoso",
     "energyLabel": "KI"
   },
   "characters": {
@@ -83,11 +83,14 @@
       }
     },
     "npc_intro": {
-      "name": "Vela",
+      "name": "Bulma",
       "sheet": "characters/npc_intro.png",
       "portrait": "portraits/npc_intro.png",
       "frameW": 32,
       "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
+      "colorKey": null,
       "dirs": [
         "down",
         "left",
@@ -99,15 +102,23 @@
           "from": 0,
           "count": 1,
           "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
         }
       }
     },
     "npc_sora": {
-      "name": "Maestra Sora",
+      "name": "Maestro Roshi",
       "sheet": "characters/npc_sora.png",
       "portrait": "portraits/npc_sora.png",
       "frameW": 32,
       "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
+      "colorKey": null,
       "dirs": [
         "down",
         "left",
@@ -119,15 +130,23 @@
           "from": 0,
           "count": 1,
           "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
         }
       }
     },
     "npc_brok": {
-      "name": "Brok",
+      "name": "Comerciante",
       "sheet": "characters/npc_brok.png",
       "portrait": "portraits/npc_brok.png",
       "frameW": 32,
       "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
+      "colorKey": null,
       "dirs": [
         "down",
         "left",
@@ -139,15 +158,23 @@
           "from": 0,
           "count": 1,
           "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
         }
       }
     },
     "npc_lia": {
-      "name": "Lía",
+      "name": "Ciudadana",
       "sheet": "characters/npc_lia.png",
       "portrait": "portraits/npc_lia.png",
       "frameW": 32,
       "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
+      "colorKey": null,
       "dirs": [
         "down",
         "left",
@@ -159,13 +186,18 @@
           "from": 0,
           "count": 1,
           "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
         }
       }
     }
   },
   "enemies": {
     "slime": {
-      "name": "Babosa de Arena",
+      "name": "Saibaman",
       "sheet": "enemies/slime.png",
       "frameW": 32,
       "frameH": 32,
@@ -182,24 +214,24 @@
           "fps": 3
         },
         "walk": {
-          "from": 0,
-          "count": 2,
-          "fps": 6
+          "from": 1,
+          "count": 4,
+          "fps": 8
         },
         "attack": {
-          "from": 2,
-          "count": 2,
-          "fps": 10
+          "from": 5,
+          "count": 3,
+          "fps": 12
         },
         "hurt": {
-          "from": 4,
+          "from": 8,
           "count": 1,
           "fps": 4
         }
       }
     },
     "bat": {
-      "name": "Murciélago",
+      "name": "Saibaman explorador",
       "sheet": "enemies/bat.png",
       "frameW": 32,
       "frameH": 32,
@@ -216,24 +248,24 @@
           "fps": 3
         },
         "walk": {
-          "from": 0,
-          "count": 2,
-          "fps": 6
+          "from": 1,
+          "count": 4,
+          "fps": 8
         },
         "attack": {
-          "from": 2,
-          "count": 2,
-          "fps": 10
+          "from": 5,
+          "count": 3,
+          "fps": 12
         },
         "hurt": {
-          "from": 4,
+          "from": 8,
           "count": 1,
           "fps": 4
         }
       }
     },
     "scorp": {
-      "name": "Escorpión Rojo",
+      "name": "Saibaman rojo",
       "sheet": "enemies/scorp.png",
       "frameW": 32,
       "frameH": 32,
@@ -250,24 +282,24 @@
           "fps": 3
         },
         "walk": {
-          "from": 0,
-          "count": 2,
-          "fps": 6
+          "from": 1,
+          "count": 4,
+          "fps": 8
         },
         "attack": {
-          "from": 2,
-          "count": 2,
-          "fps": 10
+          "from": 5,
+          "count": 3,
+          "fps": 12
         },
         "hurt": {
-          "from": 4,
+          "from": 8,
           "count": 1,
           "fps": 4
         }
       }
     },
     "lizard": {
-      "name": "Lagarto de Roca",
+      "name": "Saibaman veterano",
       "sheet": "enemies/lizard.png",
       "frameW": 32,
       "frameH": 32,
@@ -284,24 +316,24 @@
           "fps": 3
         },
         "walk": {
-          "from": 0,
-          "count": 2,
-          "fps": 6
+          "from": 1,
+          "count": 4,
+          "fps": 8
         },
         "attack": {
-          "from": 2,
-          "count": 2,
-          "fps": 10
+          "from": 5,
+          "count": 3,
+          "fps": 12
         },
         "hurt": {
-          "from": 4,
+          "from": 8,
           "count": 1,
           "fps": 4
         }
       }
     },
     "golem": {
-      "name": "Gólem del Cañón",
+      "name": "Saibaman gigante",
       "sheet": "enemies/golem.png",
       "frameW": 48,
       "frameH": 48,
@@ -314,60 +346,49 @@
       "anims": {
         "idle": {
           "from": 0,
-          "count": 2,
-          "fps": 3
+          "count": 1,
+          "fps": 2
         },
         "walk": {
-          "from": 0,
-          "count": 2,
-          "fps": 6
+          "from": 1,
+          "count": 4,
+          "fps": 8
         },
         "attack": {
-          "from": 2,
-          "count": 2,
-          "fps": 10
+          "from": 5,
+          "count": 3,
+          "fps": 12
         },
         "hurt": {
-          "from": 4,
+          "from": 8,
           "count": 1,
           "fps": 4
         }
       }
     }
   },
-  "tilesets": {
-    "city": {
-      "image": "tiles/city_tileset.png",
-      "tile": 16,
-      "map": {}
-    },
-    "dungeon": {
-      "image": "tiles/rocky_tileset.png",
-      "tile": 16,
-      "map": {}
-    }
-  },
   "tiles": {
+    "bench": "tiles/bench.png",
+    "dcliff": "tiles/dcliff.png",
+    "dfloor": "tiles/dfloor.png",
+    "door": "tiles/door.png",
+    "dtop": "tiles/dtop.png",
+    "flower": "tiles/flower.png",
+    "fount": "tiles/fount.png",
+    "gate": "tiles/gate.png",
+    "grass": "tiles/grass.png",
+    "path": "tiles/path.png",
     "pave": "tiles/pave.png",
     "road": "tiles/road.png",
-    "grass": "tiles/grass.png",
-    "flower": "tiles/flower.png",
-    "path": "tiles/path.png",
-    "water": "tiles/water.png",
-    "tree": "tiles/tree.png",
     "roof": "tiles/roof.png",
     "roofB": "tiles/roofB.png",
     "roofP": "tiles/roofP.png",
+    "stairs": "tiles/stairs.png",
+    "tree": "tiles/tree.png",
     "wall": "tiles/wall.png",
-    "door": "tiles/door.png",
-    "bench": "tiles/bench.png",
-    "fount": "tiles/fount.png",
-    "gate": "tiles/gate.png",
-    "dfloor": "tiles/dfloor.png",
-    "dtop": "tiles/dtop.png",
-    "dcliff": "tiles/dcliff.png",
-    "stairs": "tiles/stairs.png"
+    "water": "tiles/water.png"
   },
+  "tilesets": {},
   "ui": {
     "dialog": "ui/dialog.png",
     "menu": "ui/menu.png",
