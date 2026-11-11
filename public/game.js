@@ -517,7 +517,7 @@ function defeat() {
 }
 function ending() {
   const first = !G.flags.cleared; G.flags.cleared = true;
-  const l = [{ t: 'El Gólem del Cañón se desmorona. Entre los escombros brilla una esfera de luz dorada...' }, { k: 'hero', t: 'Esa luz... ¡es la misma que vi antes de despertar!' }];
+  const l = [{ t: `Tras derrotar a ${MONS.golem.n}, una esfera de luz dorada brilla entre los escombros...` }, { k: 'hero', t: 'Esa luz... ¡es la misma que vi antes de despertar!' }];
   if (G.flags.ally) l.push({ k: 'ally', t: '¡Lo logramos! Aunque algo me dice que esto solo es el principio.' });
   l.push({ t: first ? 'Obtienes 150 de oro y el Anillo del Dragón. — Fin del primer capítulo —' : 'Obtienes 150 de oro.' });
   say(l, () => { P.gold += 150; if (first) P.inv.push('anillo'); enterTown(); });

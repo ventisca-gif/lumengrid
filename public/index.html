@@ -11,20 +11,19 @@
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 html,body{margin:0;height:100%;background:#000;color:#fff;font-family:monospace;overflow:hidden;touch-action:none}
-/* El juego siempre se muestra en horizontal y a pantalla completa. */
 #wrap{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#000}
 body.rot #wrap{width:100vh;width:100dvh;height:100vw;transform-origin:0 0;transform:rotate(90deg) translateY(-100%)}
 #cv{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;display:block}
 #pad{display:none;position:absolute;inset:0;pointer-events:none}
 body.touch #pad{display:block}
-#dpad,#btns{position:absolute;bottom:5vmin;pointer-events:auto;opacity:.6}
-#dpad{left:max(4vmin,env(safe-area-inset-left));width:46vmin;height:46vmin;border-radius:50%;background:#1b2233;border:.8vmin solid #5a6c9a;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;font-size:7vmin;color:#c8d6ff}
+#dpad,#btns{position:absolute;bottom:4vmin;pointer-events:auto;opacity:.78}
+#dpad{left:max(3vmin,env(safe-area-inset-left));width:34vmin;height:34vmin;border-radius:50%;background:#1b2233;border:.6vmin solid #c08a46;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;font-size:5vmin;color:#c8d6ff}
 #dpad span{pointer-events:none}
-#btns{right:max(4vmin,env(safe-area-inset-right));display:grid;grid-template-columns:1fr 1fr;gap:3vmin}
-.bt{width:21vmin;height:21vmin;border-radius:50%;border:.8vmin solid #5a6c9a;background:#1b2233;color:#fff;font:bold 5vmin monospace;display:flex;align-items:center;justify-content:center}
-.bt.on,#dpad.on{background:#3a4c74;opacity:1}
+#btns{right:max(3vmin,env(safe-area-inset-right));display:grid;grid-template-columns:1fr 1fr;gap:1vmin}
+.bt{width:17vmin;height:17vmin;border-radius:50%;border:.6vmin solid #a48a65;background:#1b2233;color:#fff;font:bold 3vmin monospace;display:flex;align-items:center;justify-content:center}
+.bt.on,#dpad.on{opacity:1;filter:brightness(1.3)}
 #dpad.img,.bt.img{background:none center/100% 100% no-repeat;border:0;border-radius:0;color:transparent;font-size:0;image-rendering:pixelated}
-#bA{background:#1f6a58;border-color:#3fbf9f}#bT{background:#6a441f;border-color:#d08a3a}
+#bA:not(.img){background:#1f6a58;border-color:#3fbf9f}#bT:not(.img){background:#6a441f;border-color:#d08a3a}
 #nameov{position:absolute;inset:0;background:rgba(5,8,14,.92);display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:8vmin;gap:4vmin;z-index:5}
 #nameov input{font:bold 6vmin monospace;padding:2vmin;width:60vmin;text-align:center;border-radius:2vmin;border:2px solid #3fbf9f;background:#101826;color:#fff;user-select:text;-webkit-user-select:text}
 #nameov button{font:bold 6vmin monospace;padding:2vmin 7vmin;border-radius:2vmin;border:0;background:#2f8f78;color:#fff}
@@ -43,7 +42,7 @@ body.touch #pad{display:block}
   </div>
   <div id="nameov">
     <div>¿Cómo se llama tu héroe?</div>
-    <input id="nameinp" maxlength="10" value="Kai" autocomplete="off">
+    <input id="nameinp" maxlength="10" value="Goku" autocomplete="off">
     <button id="namebtn">Empezar</button>
   </div>
 </div>
