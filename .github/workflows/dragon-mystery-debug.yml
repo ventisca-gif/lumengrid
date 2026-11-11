@@ -1,0 +1,50 @@
+name: Dragon Mystery debug APK 7d9d952
+on:
+  push:
+    branches: [build/dragon-mystery-debug-7d9d952]
+permissions:
+  contents: read
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 7d9d9529d0932a7842a5d46aec682a2e48fd63f2
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        working-directory: android
+        run: gradle --no-daemon assembleDebug
+      - name: Verify APK signature and branch assets
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk DragonMystery-visual-v1-debug.apk
+          signer=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
+          "$signer" verify --verbose DragonMystery-visual-v1-debug.apk
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from zipfile import ZipFile
+          public = Path('public')
+          config = json.loads((public / 'assets/assets.json').read_text())
+          graphics = set(config['tiles'].values()) | set(config['ui'].values())
+          for group in ('characters', 'enemies'):
+              for spec in config[group].values():
+                  graphics.update(spec[key] for key in ('sheet', 'portrait') if key in spec)
+          assert len(graphics) == 44
+          with ZipFile('DragonMystery-visual-v1-debug.apk') as apk:
+              for path in ['assets/' + name for name in sorted(graphics)] + ['game.js', 'index.html', 'assets/assets.json']:
+                  assert apk.read('assets/' + path) == (public / path).read_bytes(), path
+          print('Verified all 44 graphics and the game code byte-for-byte against 7d9d952.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DragonMystery-visual-v1-debug
+          path: DragonMystery-visual-v1-debug.apk
+          if-no-files-found: error
