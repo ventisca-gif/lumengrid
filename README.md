@@ -5,8 +5,11 @@ Sin dependencias ni compilación: todo el juego está en `public/`.
 
 ## Jugar
 
-- **En el móvil:** publica la carpeta `public/` (por ejemplo con GitHub Pages, ver abajo), abre la dirección en Chrome y elige *Añadir a pantalla de inicio*.
+- **APK para Android:** el flujo `.github/workflows/apk.yml` compila la app (carpeta `android/`, que empaqueta `public/`) y publica `DragonMystery.apk` en *Releases → APK de prueba*. Descárgalo en el teléfono y permite instalar apps de origen desconocido.
+- **En el navegador del móvil:** publica la carpeta `public/` (por ejemplo con GitHub Pages, ver abajo), abre la dirección en Chrome y elige *Añadir a pantalla de inicio*.
 - **En el ordenador:** `cd public && python3 -m http.server 8000` y abre `http://localhost:8000`.
+
+El juego se muestra siempre en horizontal y a pantalla completa, con los controles sobre la imagen.
 
 Controles táctiles: cruceta de 8 direcciones, **A** (atacar / hablar / confirmar), **TÉC** (técnicas), **MENÚ** y **ESP** (esperar un turno).
 Teclado: flechas o WASD, `Z`/Enter = A, `X`/Esc = menú, `C` = técnicas, `V` = esperar.

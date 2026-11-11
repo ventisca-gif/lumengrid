@@ -3,7 +3,8 @@
    Los gráficos se cargan desde assets/ según assets/assets.json;
    lo que falte se sustituye por marcadores dibujados por código. */
 (() => {
-const TS = 16, S = 3, VW = 15, VH = 10, CW = 720, CH = 480;
+const TS = 16, S = 3, VH = 10, CH = 480;
+let CW = 720, rotated = false;   // el ancho lógico se adapta a la pantalla; el alto es fijo
 const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
 const FONT = 'bold 20px monospace', FONT_S = 'bold 16px monospace';
 const DIRS = [[0,-1],[0,1],[-1,0],[1,0],[-1,-1],[1,-1],[-1,1],[1,1]];
@@ -253,7 +254,7 @@ function buildTown() {
   for (let y = 2; y <= 21; y++) { set(14, y, 'path'); set(15, y, 'path'); }
   for (let x = 3; x <= 26; x++) { set(x, 12, 'path'); set(x, 13, 'path'); }
   for (let y = 9; y <= 16; y++) for (let x = 11; x <= 18; x++) set(x, y, 'path');
-  for (let y = 12; y <= 13; y++) for (let x = 14; x <= 15; x++) set(x, y, 'fount');
+  for (let y = 10; y <= 11; y++) for (let x = 16; x <= 17; x++) set(x, y, 'fount');
   set(14, 1, 'gate'); set(15, 1, 'gate');
   const house = (hx, hy) => { for (let x = hx; x < hx + 5; x++) { set(x, hy, 'roof'); set(x, hy + 1, 'roof'); set(x, hy + 2, 'wall'); } set(hx + 2, hy + 2, 'door'); };
   house(4, 5); house(21, 5); house(4, 15); house(21, 15);
@@ -327,7 +328,7 @@ function enterDungeon(floor) {
   G.banner = { t: `${CFG.text.dungeon} — Piso ${floor}`, age: 0 };
   if (floor === LAST_FLOOR) msg('Sientes una presencia enorme en este piso...');
 }
-function reveal() { const m = G.map; if (m.kind !== 'dun') return; for (let y = P.y - 5; y <= P.y + 5; y++) for (let x = P.x - 6; x <= P.x + 6; x++) if (x >= 0 && y >= 0 && x < m.w && y < m.h) m.seen[y * m.w + x] = 1; }
+function reveal() { const m = G.map; if (m.kind !== 'dun') return; for (let y = P.y - 5; y <= P.y + 5; y++) for (let x = P.x - 8; x <= P.x + 8; x++) if (x >= 0 && y >= 0 && x < m.w && y < m.h) m.seen[y * m.w + x] = 1; }
 
 // ───────────────────────── diálogos y menús
 function say(lines, cb) { G.dialog = { lines, i: 0, shown: 0, cb }; }
@@ -565,7 +566,8 @@ function heldDir() {
 }
 const dpad = document.getElementById('dpad');
 function dpadMove(e) {
-  const r = dpad.getBoundingClientRect(), x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+  const r = dpad.getBoundingClientRect(), sx = e.clientX - r.left - r.width / 2, sy = e.clientY - r.top - r.height / 2;
+  const x = rotated ? sy : sx, y = rotated ? -sx : sy;
   let d = null;
   if (Math.hypot(x, y) > r.width * .12) { const o = Math.round(Math.atan2(y, x) / (Math.PI / 4)); d = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]][(o + 8) % 8]; }
   const changed = !touchDir || !d || touchDir[0] !== d[0] || touchDir[1] !== d[1];
@@ -580,6 +582,20 @@ for (const b of document.querySelectorAll('.bt')) {
   for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) b.addEventListener(ev, () => b.classList.remove('on'));
 }
 cv.addEventListener('pointerdown', () => { if (G.dialog) press('a'); });
+// Ajusta el lienzo a toda la pantalla; en un móvil en vertical la interfaz se gira a horizontal.
+function resize() {
+  const w = innerWidth, h = innerHeight, touch = matchMedia('(pointer:coarse)').matches;
+  rotated = touch && h > w;
+  document.body.classList.toggle('rot', rotated); document.body.classList.toggle('touch', touch);
+  const asp = rotated ? h / w : w / h;
+  CW = clamp(Math.round(CH * asp / 2) * 2, 640, 1200); cv.width = CW; cv.height = CH;
+}
+addEventListener('resize', resize); resize();
+addEventListener('pointerdown', () => {
+  if (!matchMedia('(pointer:coarse)').matches || document.fullscreenElement || window.__noFS) return;
+  const el = document.documentElement;
+  if (el.requestFullscreen) el.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => { })).catch(() => { });
+}, { once: false });
 addEventListener('contextmenu', e => e.preventDefault());
 
 // ───────────────────────── bucle y dibujo
@@ -602,11 +618,11 @@ function wrap(s, maxW, font) { ctx.font = font; const out = []; let line = ''; f
 function bar(x, y, w, v, max, col) { ctx.fillStyle = '#000'; ctx.fillRect(x - 2, y - 2, w + 4, 14); ctx.fillStyle = '#333a4a'; ctx.fillRect(x, y, w, 10); ctx.fillStyle = col; ctx.fillRect(x, y, Math.max(0, w * v / max), 10); }
 
 function drawWorld() {
-  const m = G.map, camX = clamp(P.px + 8 - VW * 8, 0, m.w * 16 - VW * 16), camY = clamp(P.py + 8 - VH * 8, 0, m.h * 16 - VH * 16);
+  const m = G.map, camX = clamp(P.px + 8 - CW / S / 2, 0, m.w * 16 - CW / S), camY = clamp(P.py + 8 - VH * 8, 0, m.h * 16 - VH * 16);
   const cx = Math.round(camX * S) / S, cy = Math.round(camY * S) / S;
   ctx.setTransform(S, 0, 0, S, -cx * S, -cy * S); ctx.imageSmoothingEnabled = false;
   const x0 = Math.floor(cx / 16), y0 = Math.floor(cy / 16);
-  for (let y = y0; y <= y0 + VH && y < m.h; y++) for (let x = x0; x <= x0 + VW && x < m.w; x++) {
+  for (let y = y0; y <= y0 + VH && y < m.h; y++) for (let x = x0; x <= x0 + Math.ceil(CW / 48) && x < m.w; x++) {
     const t = m.t[y * m.w + x];
     if (m.kind === 'town') ctx.drawImage(tileOf(t, x, y), x * 16, y * 16);
     else if (!m.seen[y * m.w + x]) R(ctx, '#0b0806', x * 16, y * 16, 16, 16);
@@ -643,11 +659,11 @@ function drawHud() {
     for (const e of G.ents) { if (e.kind === 'enemy' && !(cheb(e, P) <= 6)) continue; ctx.fillStyle = e === P ? '#fff' : e.kind === 'ally' ? '#60ff80' : '#ff5050'; ctx.fillRect(ox + e.x * 3, oy + e.y * 3, 3, 3); }
     if (G.ally) { const a = G.ally; ctx.fillStyle = 'rgba(10,14,26,.7)'; ctx.fillRect(6, 84, 236, 28); txt(a.name, 14, 90, a.hp > 0 ? '#c8ffd0' : '#888', FONT_S); bar(110, 92, 80, Math.max(0, a.hp), a.maxhp, '#4ad06a'); }
   }
-  let y = CH - 26; for (let i = G.msgs.length - 1; i >= 0; i--) { const a = G.msgs[i], age = G.time - a.time; if (age > 5000) continue; ctx.globalAlpha = clamp((5000 - age) / 800, 0, 1); txt(a.t, 12, y, '#fff', FONT_S); y -= 20; } ctx.globalAlpha = 1;
+  let y = CH - 26; for (let i = G.msgs.length - 1; i >= 0; i--) { const a = G.msgs[i], age = G.time - a.time; if (age > 5000) continue; ctx.globalAlpha = clamp((5000 - age) / 800, 0, 1); txt(a.t, CW / 2, y, '#fff', FONT_S, 'center'); y -= 20; } ctx.globalAlpha = 1;
   if (G.banner) { ctx.globalAlpha = clamp((2200 - G.banner.age) / 500, 0, 1); ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(0, 150, CW, 50); txt(G.banner.t, CW / 2, 164, '#ffe9a0', 'bold 24px monospace', 'center'); ctx.globalAlpha = 1; }
 }
 function drawDialog() {
-  const d = G.dialog, l = d.lines[d.i], x = 10, y = CH - 150, w = CW - 20, h = 140;
+  const d = G.dialog, l = d.lines[d.i], w = Math.min(CW - 20, 780), x = (CW - w) / 2, y = 8, h = 140;
   if (UI_IMG.dialog) { ctx.imageSmoothingEnabled = false; ctx.drawImage(UI_IMG.dialog, x, y, w, h); } else panel(x, y, w, h);
   let tx = x + 22;
   if (l.k) {
@@ -664,14 +680,14 @@ function drawDialog() {
   if (d.shown >= l.t.length && Math.floor(G.time / 350) % 2) txt('▼', x + w - 34, y + h - 30, '#ffe060');
 }
 function drawMenu() {
-  const m = G.menu, n = Math.min(m.opts.length, 9), w = m.wide ? 520 : 340, x = G.mode === 'title' && !m.wide ? (CW - w) / 2 : CW - w - 14, y = G.mode === 'title' && !m.wide ? 270 : 50, h = n * 30 + (m.title ? 52 : 24);
+  const m = G.menu, n = Math.min(m.opts.length, 8), w = m.wide ? 520 : 340, x = (CW - w) / 2, y = G.mode === 'title' && !m.wide ? 270 : 92, h = n * 30 + (m.title ? 52 : 24);
   panel(x, y, w, h);
   if (m.title) txt(m.title, x + 18, y + 14, '#ffe060');
   const top = clamp(m.cur - 4, 0, Math.max(0, m.opts.length - n)), oy = y + (m.title ? 44 : 14);
   for (let i = 0; i < n; i++) { const o = m.opts[top + i]; if (top + i === m.cur) txt('▶', x + 14, oy + i * 30, '#ffe060'); txt(o.l, x + 40, oy + i * 30, o.dis ? '#8a93a8' : '#fff', m.wide ? FONT_S : FONT); }
   if (m.opts.length > n) txt(`${m.cur + 1}/${m.opts.length}`, x + w - 16, y + 14, '#8a93a8', FONT_S, 'right');
   const o = m.opts[m.cur];
-  if (o && o.d) { const ls = wrap(o.d, CW - 60, FONT_S); panel(14, CH - 30 - ls.length * 20, CW - 28, ls.length * 20 + 22); ls.forEach((s, i) => txt(s, 30, CH - 20 - (ls.length - i) * 20, '#fff', FONT_S)); }
+  if (o && o.d) { const dw = Math.min(CW - 20, 600), dx = (CW - dw) / 2, ls = wrap(o.d, dw - 36, FONT_S).slice(0, 3); panel(dx, 6, dw, ls.length * 20 + 22); ls.forEach((s, i) => txt(s, dx + 18, 17 + i * 20, '#fff', FONT_S)); }
 }
 function drawTitle() {
   const g = ctx.createLinearGradient(0, 0, 0, CH); g.addColorStop(0, '#1a2a4a'); g.addColorStop(.6, '#b85a2a'); g.addColorStop(1, '#3a1a10'); ctx.fillStyle = g; ctx.fillRect(0, 0, CW, CH);
@@ -687,7 +703,7 @@ function frame(t) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, CW, CH);
   if (G.mode === 'boot') txt('Cargando...', CW / 2, CH / 2, '#fff', FONT, 'center');
   else if (G.mode === 'title') drawTitle();
-  else { drawWorld(); drawHud(); }
+  else { drawWorld(); if (!G.dialog) drawHud(); }
   if (G.menu) drawMenu();
   if (G.dialog) drawDialog();
   requestAnimationFrame(frame);
