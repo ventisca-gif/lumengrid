@@ -23,6 +23,7 @@ body.touch #pad{display:block}
 #btns{right:max(4vmin,env(safe-area-inset-right));display:grid;grid-template-columns:1fr 1fr;gap:3vmin}
 .bt{width:21vmin;height:21vmin;border-radius:50%;border:.8vmin solid #5a6c9a;background:#1b2233;color:#fff;font:bold 5vmin monospace;display:flex;align-items:center;justify-content:center}
 .bt.on,#dpad.on{background:#3a4c74;opacity:1}
+#dpad.img,.bt.img{background:none center/100% 100% no-repeat;border:0;border-radius:0;color:transparent;font-size:0;image-rendering:pixelated}
 #bA{background:#1f6a58;border-color:#3fbf9f}#bT{background:#6a441f;border-color:#d08a3a}
 #nameov{position:absolute;inset:0;background:rgba(5,8,14,.92);display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:8vmin;gap:4vmin;z-index:5}
 #nameov input{font:bold 6vmin monospace;padding:2vmin;width:60vmin;text-align:center;border-radius:2vmin;border:2px solid #3fbf9f;background:#101826;color:#fff;user-select:text;-webkit-user-select:text}

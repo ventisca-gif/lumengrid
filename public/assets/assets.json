@@ -3,56 +3,364 @@
     "title": "Dragon Mystery",
     "heroName": "Kai",
     "allyName": "Niko",
-    "town": "Villa Poniente",
-    "dungeon": "Cañón Rojizo"
+    "town": "Ciudad Poniente",
+    "dungeon": "Cañón Rojizo",
+    "energyLabel": "KI"
   },
   "characters": {
     "hero": {
       "sheet": "characters/hero.png",
       "portrait": "portraits/hero.png",
-      "frameW": 32, "frameH": 32, "scale": 1, "footOffset": 0,
+      "frameW": 32,
+      "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
       "colorKey": null,
-      "dirs": ["down", "left", "right", "up"],
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
       "anims": {
-        "idle":   { "from": 0, "count": 1, "fps": 2 },
-        "walk":   { "from": 1, "count": 4, "fps": 8 },
-        "attack": { "from": 5, "count": 3, "fps": 12 },
-        "hurt":   { "from": 8, "count": 1, "fps": 4 }
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
+        },
+        "attack": {
+          "from": 5,
+          "count": 3,
+          "fps": 12
+        },
+        "hurt": {
+          "from": 8,
+          "count": 1,
+          "fps": 4
+        }
       }
     },
     "ally": {
       "sheet": "characters/ally.png",
       "portrait": "portraits/ally.png",
-      "frameW": 32, "frameH": 32, "scale": 1, "footOffset": 0,
+      "frameW": 32,
+      "frameH": 32,
+      "scale": 1,
+      "footOffset": 0,
       "colorKey": null,
-      "dirs": ["down", "left", "right", "up"],
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
       "anims": {
-        "idle":   { "from": 0, "count": 1, "fps": 2 },
-        "walk":   { "from": 1, "count": 4, "fps": 8 },
-        "attack": { "from": 5, "count": 3, "fps": 12 },
-        "hurt":   { "from": 8, "count": 1, "fps": 4 }
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        },
+        "walk": {
+          "from": 1,
+          "count": 4,
+          "fps": 8
+        },
+        "attack": {
+          "from": 5,
+          "count": 3,
+          "fps": 12
+        },
+        "hurt": {
+          "from": 8,
+          "count": 1,
+          "fps": 4
+        }
       }
     },
-    "npc_sora": { "name": "Maestra Sora", "sheet": "characters/npc_sora.png", "portrait": "portraits/npc_sora.png", "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 1, "fps": 2 } } },
-    "npc_brok": { "name": "Brok", "sheet": "characters/npc_brok.png", "portrait": "portraits/npc_brok.png", "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 1, "fps": 2 } } },
-    "npc_lia":  { "name": "Lía", "sheet": "characters/npc_lia.png", "portrait": "portraits/npc_lia.png", "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 1, "fps": 2 } } }
+    "npc_intro": {
+      "name": "Vela",
+      "sheet": "characters/npc_intro.png",
+      "portrait": "portraits/npc_intro.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        }
+      }
+    },
+    "npc_sora": {
+      "name": "Maestra Sora",
+      "sheet": "characters/npc_sora.png",
+      "portrait": "portraits/npc_sora.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        }
+      }
+    },
+    "npc_brok": {
+      "name": "Brok",
+      "sheet": "characters/npc_brok.png",
+      "portrait": "portraits/npc_brok.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        }
+      }
+    },
+    "npc_lia": {
+      "name": "Lía",
+      "sheet": "characters/npc_lia.png",
+      "portrait": "portraits/npc_lia.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 1,
+          "fps": 2
+        }
+      }
+    }
   },
   "enemies": {
-    "slime":  { "sheet": "enemies/slime.png",  "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 2, "fps": 3 }, "walk": { "from": 0, "count": 2, "fps": 6 }, "attack": { "from": 2, "count": 2, "fps": 10 }, "hurt": { "from": 4, "count": 1, "fps": 4 } } },
-    "bat":    { "sheet": "enemies/bat.png",    "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 2, "fps": 3 }, "walk": { "from": 0, "count": 2, "fps": 6 }, "attack": { "from": 2, "count": 2, "fps": 10 }, "hurt": { "from": 4, "count": 1, "fps": 4 } } },
-    "scorp":  { "sheet": "enemies/scorp.png",  "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 2, "fps": 3 }, "walk": { "from": 0, "count": 2, "fps": 6 }, "attack": { "from": 2, "count": 2, "fps": 10 }, "hurt": { "from": 4, "count": 1, "fps": 4 } } },
-    "lizard": { "sheet": "enemies/lizard.png", "frameW": 32, "frameH": 32, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 2, "fps": 3 }, "walk": { "from": 0, "count": 2, "fps": 6 }, "attack": { "from": 2, "count": 2, "fps": 10 }, "hurt": { "from": 4, "count": 1, "fps": 4 } } },
-    "golem":  { "sheet": "enemies/golem.png",  "frameW": 48, "frameH": 48, "dirs": ["down", "left", "right", "up"], "anims": { "idle": { "from": 0, "count": 2, "fps": 3 }, "walk": { "from": 0, "count": 2, "fps": 6 }, "attack": { "from": 2, "count": 2, "fps": 10 }, "hurt": { "from": 4, "count": 1, "fps": 4 } } }
+    "slime": {
+      "name": "Babosa de Arena",
+      "sheet": "enemies/slime.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 2,
+          "fps": 3
+        },
+        "walk": {
+          "from": 0,
+          "count": 2,
+          "fps": 6
+        },
+        "attack": {
+          "from": 2,
+          "count": 2,
+          "fps": 10
+        },
+        "hurt": {
+          "from": 4,
+          "count": 1,
+          "fps": 4
+        }
+      }
+    },
+    "bat": {
+      "name": "Murciélago",
+      "sheet": "enemies/bat.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 2,
+          "fps": 3
+        },
+        "walk": {
+          "from": 0,
+          "count": 2,
+          "fps": 6
+        },
+        "attack": {
+          "from": 2,
+          "count": 2,
+          "fps": 10
+        },
+        "hurt": {
+          "from": 4,
+          "count": 1,
+          "fps": 4
+        }
+      }
+    },
+    "scorp": {
+      "name": "Escorpión Rojo",
+      "sheet": "enemies/scorp.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 2,
+          "fps": 3
+        },
+        "walk": {
+          "from": 0,
+          "count": 2,
+          "fps": 6
+        },
+        "attack": {
+          "from": 2,
+          "count": 2,
+          "fps": 10
+        },
+        "hurt": {
+          "from": 4,
+          "count": 1,
+          "fps": 4
+        }
+      }
+    },
+    "lizard": {
+      "name": "Lagarto de Roca",
+      "sheet": "enemies/lizard.png",
+      "frameW": 32,
+      "frameH": 32,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 2,
+          "fps": 3
+        },
+        "walk": {
+          "from": 0,
+          "count": 2,
+          "fps": 6
+        },
+        "attack": {
+          "from": 2,
+          "count": 2,
+          "fps": 10
+        },
+        "hurt": {
+          "from": 4,
+          "count": 1,
+          "fps": 4
+        }
+      }
+    },
+    "golem": {
+      "name": "Gólem del Cañón",
+      "sheet": "enemies/golem.png",
+      "frameW": 48,
+      "frameH": 48,
+      "dirs": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "anims": {
+        "idle": {
+          "from": 0,
+          "count": 2,
+          "fps": 3
+        },
+        "walk": {
+          "from": 0,
+          "count": 2,
+          "fps": 6
+        },
+        "attack": {
+          "from": 2,
+          "count": 2,
+          "fps": 10
+        },
+        "hurt": {
+          "from": 4,
+          "count": 1,
+          "fps": 4
+        }
+      }
+    }
+  },
+  "tilesets": {
+    "city": {
+      "image": "tiles/city_tileset.png",
+      "tile": 16,
+      "map": {}
+    },
+    "dungeon": {
+      "image": "tiles/rocky_tileset.png",
+      "tile": 16,
+      "map": {}
+    }
   },
   "tiles": {
+    "pave": "tiles/pave.png",
+    "road": "tiles/road.png",
     "grass": "tiles/grass.png",
     "flower": "tiles/flower.png",
     "path": "tiles/path.png",
     "water": "tiles/water.png",
     "tree": "tiles/tree.png",
     "roof": "tiles/roof.png",
+    "roofB": "tiles/roofB.png",
+    "roofP": "tiles/roofP.png",
     "wall": "tiles/wall.png",
     "door": "tiles/door.png",
+    "bench": "tiles/bench.png",
     "fount": "tiles/fount.png",
     "gate": "tiles/gate.png",
     "dfloor": "tiles/dfloor.png",
@@ -61,6 +369,13 @@
     "stairs": "tiles/stairs.png"
   },
   "ui": {
-    "dialog": "ui/dialog.png"
+    "dialog": "ui/dialog.png",
+    "menu": "ui/menu.png",
+    "hud": "ui/hud.png",
+    "dpad": "ui/dpad.png",
+    "btnA": "ui/btn_a.png",
+    "btnTech": "ui/btn_tech.png",
+    "btnMenu": "ui/btn_menu.png",
+    "btnWait": "ui/btn_wait.png"
   }
 }

@@ -1,4 +1,4 @@
-const CACHE = 'dragon-mystery-v2';
+const CACHE = 'dragon-mystery-v3';
 const FILES = ['./', 'index.html', 'game.js', 'manifest.json', 'icon.svg'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
