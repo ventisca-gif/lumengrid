@@ -35,7 +35,7 @@ Usa solo gráficos propios o para los que tengas permiso de uso.
 
 ### Estado actual
 
-Ningún PNG subido todavía: todos los archivos de esta tabla faltan y se muestran marcadores.
+El paquete visual v1 incluye las hojas de personajes y enemigos, los retratos, las baldosas sueltas y la interfaz. Los atlas son opcionales.
 
 | Sección de `assets.json` | Para qué | Archivos esperados |
 |---|---|---|
