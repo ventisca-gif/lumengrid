@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#101420">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Dragon Mystery</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{margin:0;height:100%;background:#0b0e16;color:#fff;font-family:monospace;overflow:hidden;touch-action:none}
+#wrap{display:flex;flex-direction:column;align-items:center;height:100%}
+#cv{width:100vw;max-width:calc(100vh*1.5);aspect-ratio:3/2;image-rendering:pixelated;background:#000;display:block}
+#pad{flex:1;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;min-height:0}
+#dpad{width:44vmin;height:44vmin;max-width:230px;max-height:230px;border-radius:50%;background:#1b2233;border:3px solid #33405e;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;font-size:5.5vmin;color:#8fa3d0}
+#dpad span{pointer-events:none}
+#btns{display:grid;grid-template-columns:1fr 1fr;gap:3vmin}
+.bt{width:19vmin;height:19vmin;max-width:96px;max-height:96px;border-radius:50%;border:3px solid #33405e;background:#1b2233;color:#dfe7ff;font:bold 4.5vmin monospace;display:flex;align-items:center;justify-content:center}
+.bt.on,#dpad.on{background:#2b3854}
+#bA{background:#1f5a4c;border-color:#2f8f78}#bT{background:#5a3a1f;border-color:#a06a30}
+@media (orientation:landscape){
+  #cv{width:auto;height:100vh;max-width:100vw}
+  #pad{position:fixed;left:0;right:0;bottom:0;top:0;padding:0 2vw 4vh;align-items:flex-end;pointer-events:none}
+  #dpad,#btns{pointer-events:auto;opacity:.6}
+  #dpad{width:38vh;height:38vh}.bt{width:17vh;height:17vh;font-size:4.5vh}
+}
+@media (hover:hover) and (pointer:fine){#pad{display:none}#cv{max-height:100vh}}
+#nameov{position:fixed;inset:0;background:rgba(5,8,14,.92);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:5}
+#nameov input{font:bold 22px monospace;padding:10px;width:240px;text-align:center;border-radius:8px;border:2px solid #2f8f78;background:#101826;color:#fff;user-select:text;-webkit-user-select:text}
+#nameov button{font:bold 20px monospace;padding:10px 26px;border-radius:8px;border:0;background:#2f8f78;color:#fff}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="cv" width="720" height="480"></canvas>
+  <div id="pad">
+    <div id="dpad"><span>↖</span><span>↑</span><span>↗</span><span>←</span><span>●</span><span>→</span><span>↙</span><span>↓</span><span>↘</span></div>
+    <div id="btns">
+      <div class="bt" id="bT" data-k="t">TÉC</div><div class="bt" id="bA" data-k="a">A</div>
+      <div class="bt" id="bB" data-k="b">MENÚ</div><div class="bt" id="bW" data-k="w">ESP</div>
+    </div>
+  </div>
+</div>
+<div id="nameov">
+  <div style="font:bold 20px monospace">¿Cómo se llama tu héroe?</div>
+  <input id="nameinp" maxlength="10" value="Kai" autocomplete="off">
+  <button id="namebtn">Empezar</button>
+</div>
+<script src="game.js"></script>
+<script>if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
+</body>
+</html>
